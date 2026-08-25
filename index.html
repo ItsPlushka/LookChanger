@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LookChanger — Твой стиль в CS2 начинается здесь!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ice: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        csdark: {
+                            900: '#070b12',
+                            800: '#0d1322',
+                            700: '#141d33',
+                            600: '#1c2847',
+                            500: '#27375f'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Orbitron', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'ice-glow': '0 0 35px -5px rgba(56, 189, 248, 0.4)',
+                        'ice-glow-lg': '0 0 60px -10px rgba(56, 189, 248, 0.6)',
+                        'neon-blue': '0 0 15px rgba(14, 165, 233, 0.5)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow-line': 'glowLine 3s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        glowLine: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '200% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #070b12;
+            color: #f0f9ff;
+            overflow-x: hidden;
+        }
+
+        .font-heading {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(13, 19, 34, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(20, 29, 51, 0.8) 0%, rgba(13, 19, 34, 0.9) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.25);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 50%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c2847;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0ea5e9;
+        }
+
+        .hex-grid {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-ice-500 selection:text-white">
+
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+    <header class="sticky top-0 z-50 w-full glass-panel border-b border-ice-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-ice-600 to-ice-400 p-0.5 shadow-ice-glow group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-csdark-900 rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-heading text-ice-400 text-lg">LC</i>
+                    </div>
+                </div>
+                <div>
+                    <span class="font-heading text-xl font-bold tracking-wider text-white flex items-center gap-1.5">
+                        LOOK<span class="text-ice-400">CHANGER</span>
+                    </span>
+                    <span class="block text-[10px] text-ice-300/60 font-medium tracking-widest uppercase">CS2 SkinChanger</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-ice-400 transition-colors">О проекте</a>
+                <a href="#tariffs" class="hover:text-ice-400 transition-colors">Тарифы</a>
+                <a href="#calculator" class="hover:text-ice-400 transition-colors">Калькулятор</a>
+                <a href="#roadmap" class="hover:text-ice-400 transition-colors">Статус</a>
+                <a href="#faq" class="hover:text-ice-400 transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Social CTA & Direct Bot Payment Link -->
+            <div class="hidden sm:flex items-center gap-3">
+                <a href="https://t.me/LookChangers" target="_blank" rel="noopener" class="glass-panel hover:bg-ice-500/20 text-ice-300 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all border border-ice-400/20">
+                    <i class="fa-brands fa-telegram text-ice-400 text-sm"></i>
+                    <span>@LookChangers</span>
+                </a>
+
+                <a href="https://t.me/LookChangerPaymentBot" target="_blank" rel="noopener" class="bg-gradient-to-r from-ice-500 to-ice-600 hover:from-ice-400 hover:to-ice-500 text-white font-semibold text-xs px-5 py-2.5 rounded-xl shadow-ice-glow hover:shadow-ice-glow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-solid fa-robot text-xs"></i>
+                    <span>Купить доступ</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-ice-500/10 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" class="block text-slate-300 hover:text-ice-400 py-2">О проекте</a>
+            <a href="#tariffs" class="block text-slate-300 hover:text-ice-400 py-2">Тарифы</a>
+            <a href="#calculator" class="block text-slate-300 hover:text-ice-400 py-2">Калькулятор</a>
+            <a href="#roadmap" class="block text-slate-300 hover:text-ice-400 py-2">Статус разработки</a>
+            <a href="#faq" class="block text-slate-300 hover:text-ice-400 py-2">FAQ</a>
+            <div class="pt-2 flex flex-col gap-2">
+                <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="w-full text-center bg-gradient-to-r from-ice-500 to-ice-600 text-white py-2.5 text-xs rounded-xl font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-robot text-sm"></i> Купить в Телеграм Боте
+                </a>
+                <a href="https://t.me/LookChangers" target="_blank" class="w-full text-center glass-panel py-2.5 text-ice-300 text-xs rounded-xl font-semibold border border-ice-400/30">
+                    <i class="fa-brands fa-telegram mr-2 text-ice-400"></i> Telegram Канал
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 flex-grow">
+        <section id="about" class="relative min-h-[calc(100vh-80px)] flex items-center justify-center pt-10 pb-20 px-4 sm:px-6 lg:px-8 hex-grid">
+            <!-- Glow Accent Blur -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-ice-500/15 rounded-full blur-[140px] pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto text-center space-y-8">
+                
+                <!-- Development Status Badge (No emojis) -->
+                <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel border border-ice-400/30 text-xs font-semibold text-ice-300 shadow-inner">
+                    <span class="relative flex h-2.5 w-2.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-ice-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-ice-400"></span>
+                    </span>
+                    <span>СТАТУС: Идёт разработка SkinChanger для CS2</span>
+                </div>
+
+                <!-- Main Headline -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-heading tracking-tight leading-tight text-white">
+                    <span class="block">Твой стиль в CS2</span>
+                    <span class="text-gradient">начинается здесь!</span>
+                </h1>
+
+                <!-- Clean Slogan -->
+                <p class="text-lg sm:text-2xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
+                    <span class="font-bold text-ice-400 font-heading">YOUR SKINS. YOUR STYLE. YOUR GAME.</span><br>
+                    Все скины, ножи, перчатки и агенты Counter-Strike 2 в одном удобном софте. Максимальный FPS и стабильная работа.
+                </p>
+
+                <!-- Features Pills -->
+                <div class="flex flex-wrap gap-3 justify-center pt-2">
+                    <span class="glass-panel px-4 py-2 rounded-xl text-xs font-medium text-slate-300 border border-ice-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-ice-400"></i> VAC Protection Ready
+                    </span>
+                    <span class="glass-panel px-4 py-2 rounded-xl text-xs font-medium text-slate-300 border border-ice-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-ice-400"></i> Без падения FPS
+                    </span>
+                    <span class="glass-panel px-4 py-2 rounded-xl text-xs font-medium text-slate-300 border border-ice-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles text-ice-400"></i> Все скины & перчатки
+                    </span>
+                </div>
+
+                <!-- Call to action buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-ice-500 via-ice-600 to-csdark-600 hover:from-ice-400 hover:to-ice-600 text-white font-bold text-base shadow-ice-glow hover:shadow-ice-glow-lg transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-robot text-lg"></i> Купить в Телеграм Боте
+                    </a>
+                    <a href="https://t.me/LooksChanger" target="_blank" rel="noopener" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-ice-400/30 hover:border-ice-400/60 text-ice-200 font-semibold text-base transition-all text-center flex items-center justify-center gap-2 group">
+                        <i class="fa-brands fa-telegram text-xl text-ice-400 group-hover:scale-110 transition-transform"></i>
+                        <span>Написать Создателю в ЛС</span>
+                    </a>
+                </div>
+
+                <!-- Creator Credit Tag -->
+                <div class="pt-4 text-xs text-slate-400">
+                    Создатель проекта: <a href="https://t.me/LooksChanger" target="_blank" class="text-ice-400 hover:underline font-bold inline-flex items-center gap-1">@LooksChanger <i class="fa-solid fa-paper-plane text-[10px]"></i></a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="tariffs" class="py-20 relative z-10 hex-grid">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold font-heading bg-ice-500/20 text-ice-400 border border-ice-400/30">
+                        Наши Тарифы и Цены
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white font-heading">
+                        Доступные тарифы под любой бюджет
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base">
+                        Выберите подходящую подписку на LookChanger и получите моментальный доступ сразу после официального релиза.
+                    </p>
+                </div>
+
+                <!-- Tariff Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    
+                    <!-- Plan 1: 7 days -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 relative border border-ice-500/20 hover:border-ice-400">
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest font-heading">Старт</div>
+                            <h3 class="text-2xl font-black text-white font-heading">7 дней</h3>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-extrabold text-ice-400">149</span>
+                                <span class="text-lg font-bold text-slate-300">⭐</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 border-t border-ice-500/10 pt-3">
+                                ~21 ⭐ в день. Идеально для пробы всех функций!
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Все скины CS2</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Перчатки и Агенты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Пожизненные апдейты</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPurchaseModal('7 дней', '149 ⭐')" class="w-full py-3 rounded-xl glass-panel hover:bg-ice-500/20 text-white font-bold text-xs border border-ice-400/30 transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-star text-ice-400"></i> Заказать (149 ⭐)
+                        </button>
+                    </div>
+
+                    <!-- Plan 2: 14 days -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 relative border border-ice-500/20 hover:border-ice-400">
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest font-heading">Двухнедельный</div>
+                            <h3 class="text-2xl font-black text-white font-heading">14 дней</h3>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-extrabold text-ice-400">259</span>
+                                <span class="text-lg font-bold text-slate-300">⭐</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 border-t border-ice-500/10 pt-3">
+                                Экономия 13% по сравнению со старт-паком.
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Все скины CS2</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Перчатки и Агенты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Пожизненные апдейты</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPurchaseModal('14 дней', '259 ⭐')" class="w-full py-3 rounded-xl glass-panel hover:bg-ice-500/20 text-white font-bold text-xs border border-ice-400/30 transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-star text-ice-400"></i> Заказать (259 ⭐)
+                        </button>
+                    </div>
+
+                    <!-- Plan 3: 30 days (POPULAR) -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 relative border-2 border-ice-400 shadow-ice-glow transform lg:-translate-y-3 bg-gradient-to-b from-csdark-700 to-csdark-900">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-ice-500 to-blue-600 text-white text-[10px] uppercase font-extrabold px-3 py-1 rounded-full shadow">
+                            Хит продаж
+                        </div>
+                        <div class="space-y-4 pt-1">
+                            <div class="text-xs font-bold text-ice-300 uppercase tracking-widest font-heading">Стандарт</div>
+                            <h3 class="text-2xl font-black text-white font-heading">30 дней</h3>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-4xl font-extrabold text-gradient">429</span>
+                                <span class="text-xl font-bold text-slate-300">⭐</span>
+                            </div>
+                            <div class="text-[11px] text-ice-300/80 border-t border-ice-500/20 pt-3">
+                                ~14 ⭐ в день. Максимально популярный тариф среди игроков.
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-200 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-ice-400"></i> Все скины CS2</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-ice-400"></i> Перчатки и Агенты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-ice-400"></i> Пожизненные апдейты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-ice-400"></i> Лучший выбор</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPurchaseModal('30 дней', '429 ⭐')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-ice-500 to-ice-600 hover:from-ice-400 hover:to-ice-500 text-white font-bold text-xs shadow-ice-glow transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-star"></i> Заказать (429 ⭐)
+                        </button>
+                    </div>
+
+                    <!-- Plan 4: 90 days -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 relative border border-ice-500/20 hover:border-ice-400">
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest font-heading">Квартал</div>
+                            <h3 class="text-2xl font-black text-white font-heading">90 дней</h3>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-extrabold text-ice-400">899</span>
+                                <span class="text-lg font-bold text-slate-300">⭐</span>
+                            </div>
+                            <div class="text-[11px] text-emerald-400 border-t border-ice-500/10 pt-3 font-semibold">
+                                Выгода ~30% против помесячной оплаты!
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Все скины CS2</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Перчатки и Агенты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Пожизненные апдейты</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPurchaseModal('90 дней', '899 ⭐')" class="w-full py-3 rounded-xl glass-panel hover:bg-ice-500/20 text-white font-bold text-xs border border-ice-400/30 transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-star text-ice-400"></i> Заказать (899 ⭐)
+                        </button>
+                    </div>
+
+                    <!-- Plan 5: 180 days -->
+                    <div class="glass-card rounded-2xl p-6 flex flex-col justify-between space-y-6 relative border border-ice-500/20 hover:border-ice-400">
+                        <div class="space-y-4">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest font-heading">Полгода</div>
+                            <h3 class="text-2xl font-black text-white font-heading">180 дней</h3>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-extrabold text-ice-400">1499</span>
+                                <span class="text-lg font-bold text-slate-300">⭐</span>
+                            </div>
+                            <div class="text-[11px] text-emerald-400 border-t border-ice-500/10 pt-3 font-semibold">
+                                Топовая выгода: всего 8.3 ⭐/день!
+                            </div>
+                            <ul class="space-y-2 text-xs text-slate-300 pt-2">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Все скины CS2</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Перчатки и Агенты</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-ice-400"></i> Пожизненные апдейты</li>
+                            </ul>
+                        </div>
+                        <button onclick="openPurchaseModal('180 дней', '1499 ⭐')" class="w-full py-3 rounded-xl glass-panel hover:bg-ice-500/20 text-white font-bold text-xs border border-ice-400/30 transition-all flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-star text-ice-400"></i> Заказать (1499 ⭐)
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="calculator" class="py-20 relative z-10 bg-csdark-800/40 border-y border-ice-500/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-ice-500/10 text-ice-400 border border-ice-400/20 text-xs font-bold font-heading">
+                            <i class="fa-solid fa-calculator"></i> Калькулятор экономии
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+                            Сколько стоит инвентарь твоей мечты?
+                        </h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            В торговой площадке Steam популярные скины, ножи и перчатки стоят миллионы рублей. С LookChanger ты получаешь доступ ко ВСЕМ скинам CS2 всего за 429 ₽ в месяц!
+                        </p>
+
+                        <!-- Loadout list checkboxes -->
+                        <div class="space-y-3 pt-2" id="calc-items-list">
+                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-csdark-900 border border-ice-500/10 cursor-pointer hover:border-ice-400/30 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" value="1200000" checked onchange="calculateSavings()" class="calc-checkbox accent-ice-400 w-4 h-4 rounded">
+                                    <span class="text-xs font-semibold text-white">AWP | Dragon Lore (FN)</span>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400">~ 1,200,000 ₽</span>
+                            </label>
+
+                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-csdark-900 border border-ice-500/10 cursor-pointer hover:border-ice-400/30 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" value="850000" checked onchange="calculateSavings()" class="calc-checkbox accent-ice-400 w-4 h-4 rounded">
+                                    <span class="text-xs font-semibold text-white">Butterfly Knife | Doppler Ruby</span>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400">~ 850,000 ₽</span>
+                            </label>
+
+                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-csdark-900 border border-ice-500/10 cursor-pointer hover:border-ice-400/30 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" value="350000" checked onchange="calculateSavings()" class="calc-checkbox accent-ice-400 w-4 h-4 rounded">
+                                    <span class="text-xs font-semibold text-white">Sport Gloves | Vice (FN)</span>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400">~ 350,000 ₽</span>
+                            </label>
+
+                            <label class="flex items-center justify-between p-3.5 rounded-xl bg-csdark-900 border border-ice-500/10 cursor-pointer hover:border-ice-400/30 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" value="450000" checked onchange="calculateSavings()" class="calc-checkbox accent-ice-400 w-4 h-4 rounded">
+                                    <span class="text-xs font-semibold text-white">AK-47 | Case Hardened (Blue Gem)</span>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400">~ 450,000 ₽</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Output Card -->
+                    <div class="lg:col-span-6">
+                        <div class="glass-card rounded-3xl p-8 border border-ice-400/30 space-y-6 text-center relative overflow-hidden">
+                            <div class="text-xs font-bold uppercase tracking-widest text-slate-400 font-heading">Сравнение Стоимости</div>
+                            
+                            <div class="space-y-2">
+                                <div class="text-xs text-slate-400">Цена инвентаря в Steam:</div>
+                                <div id="steam-total-price" class="text-3xl sm:text-4xl font-extrabold text-red-400 font-mono line-through">
+                                    2,850,000 ₽
+                                </div>
+                            </div>
+
+                            <div class="w-full h-px bg-ice-500/20 my-4"></div>
+
+                            <div class="space-y-2">
+                                <div class="text-xs text-ice-300 font-bold uppercase tracking-wider">Цена с подпиской LookChanger (30 дней):</div>
+                                <div class="text-4xl sm:text-5xl font-black text-gradient font-heading">
+                                    429 ⭐
+                                </div>
+                            </div>
+
+                            <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-piggy-bank text-lg"></i>
+                                <span>Ваша чистая экономия: <span id="savings-percent" class="font-mono text-sm text-white">99.98%</span></span>
+                            </div>
+
+                            <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="block w-full py-4 rounded-xl bg-gradient-to-r from-ice-500 to-ice-600 text-white font-bold text-sm shadow-ice-glow hover:shadow-ice-glow-lg transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-robot text-base"></i> Оформить Подписку в Боте
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="py-20 relative z-10 hex-grid">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold font-heading bg-ice-500/20 text-ice-400 border border-ice-400/30">
+                        Активно создаём проект LookChanger
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white font-heading">
+                        Процесс разработки LookChanger
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base">
+                        Мы ежедневно работаем над оптимизацией, обновляем базу предметов и проводим тесты производительности.
+                    </p>
+                </div>
+
+                <!-- Progress Dashboard -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Feature 1 -->
+                    <div class="glass-card rounded-2xl p-6 space-y-4 border border-ice-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-ice-500/10 border border-ice-400/30 flex items-center justify-center text-ice-400 text-xl font-bold">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-heading font-bold text-white text-sm">Ядро & Оптимизация</h3>
+                            <span class="text-xs font-mono font-bold text-emerald-400">100%</span>
+                        </div>
+                        <div class="w-full h-2 bg-csdark-900 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Плавный и быстрый движок скинченджера без просадок FPS и лишней нагрузки на ПК.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="glass-card rounded-2xl p-6 space-y-4 border border-ice-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-ice-500/10 border border-ice-400/30 flex items-center justify-center text-ice-400 text-xl font-bold">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-heading font-bold text-white text-sm">Инвентарь & Скины</h3>
+                            <span class="text-xs font-mono font-bold text-ice-400">95%</span>
+                        </div>
+                        <div class="w-full h-2 bg-csdark-900 rounded-full overflow-hidden">
+                            <div class="h-full bg-ice-400 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Подключение полной базы всех скинов CS2, перчаток, ножей и агентов.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="glass-card rounded-2xl p-6 space-y-4 border border-ice-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-ice-500/10 border border-ice-400/30 flex items-center justify-center text-ice-400 text-xl font-bold">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-heading font-bold text-white text-sm">Sticker & Float Editor</h3>
+                            <span class="text-xs font-mono font-bold text-ice-400">85%</span>
+                        </div>
+                        <div class="w-full h-2 bg-csdark-900 rounded-full overflow-hidden">
+                            <div class="h-full bg-ice-400 rounded-full" style="width: 85%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Настройка потертости Float, позиционирование стикеров и StatTrak каунтеры.
+                        </p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="glass-card rounded-2xl p-6 space-y-4 border border-ice-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-ice-500/10 border border-ice-400/30 flex items-center justify-center text-ice-400 text-xl font-bold">
+                            <i class="fa-solid fa-vial"></i>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-heading font-bold text-white text-sm">Приватный Бета-Тест</h3>
+                            <span class="text-xs font-mono font-bold text-amber-400">Скоро</span>
+                        </div>
+                        <div class="w-full h-2 bg-csdark-900 rounded-full overflow-hidden">
+                            <div class="h-full bg-amber-400 rounded-full animate-pulse" style="width: 70%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Закрытое тестирование участниками нашего Telegram сообщества.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 relative z-10 bg-csdark-800/50 border-t border-ice-500/10">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                
+                <div class="text-center space-y-4">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+                        Часто задаваемые вопросы (FAQ)
+                    </h2>
+                    <p class="text-slate-400 text-sm">
+                        Ответы на самые популярные вопросы о скинченджере LookChanger для CS2
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <details class="glass-panel rounded-2xl border border-ice-500/20 group overflow-hidden">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer text-sm font-bold text-white select-none">
+                            <span>Видят ли другие игроки мои скины из LookChanger?</span>
+                            <i class="fa-solid fa-chevron-down text-ice-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-300 border-t border-ice-500/10 pt-3 leading-relaxed">
+                            SkinChanger работает на клиенте вашей игры, изменяя отображение моделей, текстур, перчаток и ножей у вас на экране. Это позволяет наслаждаться любыми скинами с максимальным FPS без траты денег на покупку реальных скинов.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="glass-panel rounded-2xl border border-ice-500/20 group overflow-hidden">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer text-sm font-bold text-white select-none">
+                            <span>Безопасно ли использовать LookChanger? (VAC защита)</span>
+                            <i class="fa-solid fa-chevron-down text-ice-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-300 border-t border-ice-500/10 pt-3 leading-relaxed">
+                            Мы уделяем 100% внимания безопасности нашего кода. Однако напоминаем, что ответственность за использование стороннего ПО всегда лежит на пользователе.
+                            <br><br>
+                            Важно! Мы настоятельно рекомендуем использовать LookChanger только на новых или запасных аккаунтах, которые не жалко потерять. От использования на основных аккаунтах с дорогим инвентарём лучше отказаться — это обезопасит вас в случае любых обновлений античита со стороны Valve.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="glass-panel rounded-2xl border border-ice-500/20 group overflow-hidden">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer text-sm font-bold text-white select-none">
+                            <span>Как происходит активация подписки после покупки?</span>
+                            <i class="fa-solid fa-chevron-down text-ice-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-300 border-t border-ice-500/10 pt-3 leading-relaxed">
+                            Активация подписки происходит после оплаты через нашего Telegram бота <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="text-ice-400 underline font-bold">@LookChangerPaymentBot</a>, где нужно предоставить скриншот об оплате. <a href="https://t.me/LooksChanger" target="_blank" class="text-ice-400 underline font-bold">@LooksChanger</a> После вы получите индивидуальный ключ активации LookChanger.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="glass-panel rounded-2xl border border-ice-500/20 group overflow-hidden">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer text-sm font-bold text-white select-none">
+                            <span>Проседает ли FPS в играх с LookChanger?</span>
+                            <i class="fa-solid fa-chevron-down text-ice-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <div class="px-5 pb-5 text-xs text-slate-300 border-t border-ice-500/10 pt-3 leading-relaxed">
+                            Нет! LookChanger оптимизирован, что гарантирует стабильный FPS.
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-16 relative z-10">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-card rounded-3xl p-8 sm:p-12 border border-ice-400/40 text-center space-y-6 relative overflow-hidden bg-gradient-to-r from-csdark-900 via-csdark-800 to-csdark-900 shadow-ice-glow-lg">
+                    
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-ice-500 to-blue-500 flex items-center justify-center text-3xl text-white mx-auto shadow-ice-glow">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading">
+                        Присоединяйся к сообществу LookChanger
+                    </h2>
+
+                    <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+                        Следи за релизами, обновлениями и розыгрышами ключей доступа в нашем официальном Telegram канале!
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+                        <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="px-8 py-4 rounded-xl bg-gradient-to-r from-ice-500 to-ice-600 hover:from-ice-400 hover:to-ice-500 text-white font-bold text-sm shadow-ice-glow transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-robot text-lg"></i>
+                            Оплатить в Боте @LookChangerPaymentBot
+                        </a>
+                        <a href="https://t.me/LookChangers" target="_blank" class="px-8 py-4 rounded-xl glass-panel hover:bg-ice-500/20 text-ice-300 font-bold text-sm border border-ice-400/30 transition-all flex items-center gap-2">
+                            <i class="fa-brands fa-telegram text-ice-400 text-lg"></i>
+                            Канал @LookChangers
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-panel border-t border-ice-500/10 py-10 relative z-10 text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-ice-500/20 border border-ice-400/30 flex items-center justify-center font-heading text-xs font-bold text-ice-400">
+                    LC
+                </div>
+                <div>
+                    <span class="font-heading font-bold text-white text-sm">LOOKCHANGER</span>
+                    <p class="text-[10px] text-slate-400">YOUR SKINS. YOUR STYLE. YOUR GAME.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-6 text-slate-400">
+                <a href="#about" class="hover:text-ice-400 transition-colors">О проекте</a>
+                <a href="#tariffs" class="hover:text-ice-400 transition-colors">Тарифы</a>
+                <a href="#calculator" class="hover:text-ice-400 transition-colors">Калькулятор</a>
+                <a href="#faq" class="hover:text-ice-400 transition-colors">FAQ</a>
+                <a href="https://t.me/LooksChanger" target="_blank" class="text-ice-400 font-semibold hover:underline">Создатель @LooksChanger</a>
+            </div>
+
+            <div class="text-center md:text-right text-[11px] text-slate-400">
+                &copy; 2026 LookChanger Project. Все права защищены.<br>
+                CS2 и Counter-Strike являются зарегистрированными торговыми марками Valve Corporation.
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="relative z-10 py-10 bg-csdark-900 border-t border-ice-500/20 text-center">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black font-heading tracking-widest text-ice-400 drop-shadow-[0_0_25px_rgba(56,189,248,0.6)] uppercase">
+            
+        </h2>
+    </div>
+
+    <div id="purchase-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-card max-w-md w-full rounded-3xl p-6 border border-ice-400/40 space-y-6 relative">
+            
+            <button onclick="closePurchaseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-2xl bg-ice-500/20 border border-ice-400/40 text-ice-400 flex items-center justify-center text-xl mx-auto">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-heading">Оформление Заказа</h3>
+                <p class="text-xs text-slate-300">Вы выбрали тариф: <span id="modal-plan-name" class="font-bold text-ice-400">30 дней</span></p>
+            </div>
+
+            <div class="bg-csdark-900/90 rounded-2xl p-4 border border-ice-500/20 space-y-3 text-xs">
+                <div class="flex justify-between text-slate-400">
+                    <span>Тариф:</span>
+                    <span id="modal-plan-period" class="text-white font-semibold">30 дней</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                    <span>Итоговая цена:</span>
+                    <span id="modal-plan-price" class="text-emerald-400 font-bold font-mono text-sm">429 ⭐</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                    <span>Оплата в боте:</span>
+                    <span class="text-ice-400 font-semibold">@LookChangerPaymentBot</span>
+                </div>
+                <div class="flex justify-between text-slate-400">
+                    <span>Создатель:</span>
+                    <span class="text-slate-300 font-semibold">@LooksChanger</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <a id="modal-tg-btn" href="https://t.me/LookChangerPaymentBot" target="_blank" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-ice-500 to-ice-600 hover:from-ice-400 hover:to-ice-500 text-white font-bold text-center text-xs shadow-ice-glow transition-all">
+                    <i class="fa-solid fa-robot text-sm mr-2"></i> Перейти к оплате в Telegram Боте (@LookChangerPaymentBot)
+                </a>
+                <button onclick="closePurchaseModal()" class="block w-full py-3 rounded-xl glass-panel text-slate-400 hover:text-white text-xs font-semibold">
+                    Отмена
+                </button>
+            </div>
+
+            <p class="text-[10px] text-center text-slate-400">
+                Нажмите кнопку выше, чтобы открылся официальный бот оплаты <a href="https://t.me/LookChangerPaymentBot" target="_blank" class="text-ice-400 underline">@LookChangerPaymentBot</a>.
+            </p>
+
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Canvas Background Floating Ice Particles Effect ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = -Math.random() * 0.6 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+                    this.reset();
+                    this.y = canvas.height;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(56, 189, 248, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        // --- 2. Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- 3. Interactive Savings Calculator ---
+        function calculateSavings() {
+            const checkboxes = document.querySelectorAll('.calc-checkbox');
+            let totalSteam = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    totalSteam += parseInt(cb.value);
+                }
+            });
+
+            const formattedTotal = totalSteam.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('steam-total-price').innerText = formattedTotal;
+
+            const lookChangerPrice = 429;
+            const savings = totalSteam > 0 ? ((totalSteam - lookChangerPrice) / totalSteam * 100).toFixed(2) : "0.00";
+            document.getElementById('savings-percent').innerText = `${savings}%`;
+        }
+
+        // --- 4. Purchase Modal Handler ---
+        function openPurchaseModal(planName, price) {
+            document.getElementById('modal-plan-name').innerText = planName;
+            document.getElementById('modal-plan-period').innerText = planName;
+            document.getElementById('modal-plan-price').innerText = price;
+            
+            const modal = document.getElementById('purchase-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchase-modal').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const purchaseModal = document.getElementById('purchase-modal');
+            if (event.target === purchaseModal) {
+                closePurchaseModal();
+            }
+        }
+    </script>
+
+</body>
+</html>
